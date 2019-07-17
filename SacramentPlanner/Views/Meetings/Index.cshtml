@@ -93,7 +93,18 @@
                     </ul>
                 </td>
                 <td>
-                    <!--HERE IS WHERE THE SPEAKERS WILL LOAD-->
+                    <!--HERE IS WHERE THE SPEAKERS WILL LOAD where name and topic are the only fields-->
+                    <ul>
+                        @if (item.Speakers != null)
+                        {
+                            @foreach (var speaker in item.Speakers)
+                            {
+                                <li><b>Name: </b>@Html.DisplayFor(modelItem => speaker.Name)<ul>
+                                <li><b>Topic:</b> @Html.DisplayFor(modelItem => speaker.Topic)</li></ul>
+                        </li>
+                            }
+                        }
+                    </ul>
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.MeetingId">Edit</a> |
