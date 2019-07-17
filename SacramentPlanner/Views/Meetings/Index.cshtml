@@ -1,0 +1,106 @@
+﻿@model IEnumerable<SacramentPlanner.Models.Meeting>
+
+@{
+    ViewData["Title"] = "Meetings List";
+}
+
+<h1>List of Scheduled Meetings</h1>
+<!--<form asp-controller="Meetings" asp-action="Index">
+    <p>
+        Conducting: <input type="text" name="SearchString">
+        <input type="submit" value="Search" class="button" />
+    </p>
+</form>-->
+<p>
+    <a asp-action="Create">Create New Meeting Plan</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a>
+                    @Html.DisplayNameFor(model => model.MeetingDate)
+                </a>
+            </th>
+            <th style="text-align:left;">
+                Details
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Speakers)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MeetingDate)
+                </td>
+                <td>
+                    <ul>
+                        <li>
+                            <b> @Html.DisplayNameFor(modelItem => item.Conducting) </b>:
+                            @Html.DisplayFor(modelItem => item.Conducting)
+                            <ul>
+
+                                <li>
+                                    <b>
+                                        @Html.DisplayNameFor(modelItem => item.OpenPray)
+                                    </b>:
+                                    @Html.DisplayFor(modelItem => item.OpenPray)
+                                    <ul>
+
+                                        <li>
+                                            <b>
+                                                @Html.DisplayNameFor(modelItem => item.OpenHymn)
+                                            </b>: #
+                                            @Html.DisplayFor(modelItem => item.OpenHymn)
+
+                                        </li>
+
+                                        <li>
+                                            <b>
+                                                @Html.DisplayNameFor(modelItem => item.SacramentHymn)
+                                            </b>: #
+                                            @Html.DisplayFor(modelItem => item.SacramentHymn)
+                                        </li>
+
+                                        <li>
+                                            <b>
+                                                @Html.DisplayNameFor(modelItem => item.IntermediateHymn)
+                                            </b>: #
+                                            @Html.DisplayFor(modelItem => item.IntermediateHymn)
+                                        </li>
+
+                                        <li>
+                                            <b>
+                                                @Html.DisplayNameFor(modelItem => item.ClosingHymn)
+                                            </b>: #
+                                            @Html.DisplayFor(modelItem => item.ClosingHymn)
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <b>
+                                        @Html.DisplayNameFor(modelItem => item.ClosingPray)
+                                    </b>:
+                                    @Html.DisplayFor(modelItem => item.ClosingPray)
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </td>
+                <td>
+                    <!--HERE IS WHERE THE SPEAKERS WILL LOAD-->
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.MeetingId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.MeetingId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.MeetingId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
