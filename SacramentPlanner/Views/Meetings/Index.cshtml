@@ -95,13 +95,16 @@
                 <td>
                     <!--HERE IS WHERE THE SPEAKERS WILL LOAD where name and topic are the only fields-->
                     <ul>
+                        <a href="~/Speakers/Index/@item.MeetingId">Add Speakers</a>
                         @if (item.Speakers != null)
                         {
                             @foreach (var speaker in item.Speakers)
                             {
-                                <li><b>Name: </b>@Html.DisplayFor(modelItem => speaker.Name)<ul>
-                                <li><b>Topic:</b> @Html.DisplayFor(modelItem => speaker.Topic)</li></ul>
-                        </li>
+                                <li>
+                                    <b>Name: </b>@Html.DisplayFor(modelItem => speaker.Name)<ul>
+                                        <li><b>Topic:</b> @Html.DisplayFor(modelItem => speaker.Topic)</li>
+                                    </ul>
+                                </li>
                             }
                         }
                     </ul>

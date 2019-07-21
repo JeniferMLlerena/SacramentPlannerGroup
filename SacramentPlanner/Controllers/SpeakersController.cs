@@ -36,7 +36,7 @@ namespace SacramentPlanner.Controllers
 
             var speaker = await _context.Speakers
                 .Include(s => s.Meeting)
-                .FirstOrDefaultAsync(m => m.SpeakerId == id);
+                .SingleOrDefaultAsync(m => m.SpeakerId == id);
             if (speaker == null)
             {
                 return NotFound();
@@ -48,7 +48,7 @@ namespace SacramentPlanner.Controllers
         // GET: Speakers/Create
         public IActionResult Create()
         {
-            ViewData["MeetingId"] = new SelectList(_context.Meetings, "MeetingId", "ClosingPray");
+            ViewData["MeetingId"] = new SelectList(_context.Meetings, "MeetingId", "MeetingId");
             return View();
         }
 
@@ -63,9 +63,10 @@ namespace SacramentPlanner.Controllers
             {
                 _context.Add(speaker);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                String xIndex = "Index/" + speaker.MeetingId;
+                return RedirectToAction(xIndex);
             }
-            ViewData["MeetingId"] = new SelectList(_context.Meetings, "MeetingId", "ClosingPray", speaker.MeetingId);
+            ViewData["MeetingId"] = new SelectList(_context.Meetings, "MeetingId", "MeetingId", speaker.MeetingId);
             return View(speaker);
         }
 
@@ -77,12 +78,12 @@ namespace SacramentPlanner.Controllers
                 return NotFound();
             }
 
-            var speaker = await _context.Speakers.FindAsync(id);
+            var speaker = await _context.Speakers.SingleOrDefaultAsync(m => m.MeetingId == id); 
             if (speaker == null)
             {
                 return NotFound();
             }
-            ViewData["MeetingId"] = new SelectList(_context.Meetings, "MeetingId", "ClosingPray", speaker.MeetingId);
+            ViewData["MeetingId"] = new SelectList(_context.Meetings, "MeetingId", "MeetingId", speaker.MeetingId);
             return View(speaker);
         }
 
@@ -116,9 +117,10 @@ namespace SacramentPlanner.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                String xIndex = "Index/" + speaker.MeetingId;
+                return RedirectToAction(xIndex);
             }
-            ViewData["MeetingId"] = new SelectList(_context.Meetings, "MeetingId", "ClosingPray", speaker.MeetingId);
+            ViewData["MeetingId"] = new SelectList(_context.Meetings, "MeetingId", "MeetingId", speaker.MeetingId);
             return View(speaker);
         }
 
@@ -132,7 +134,7 @@ namespace SacramentPlanner.Controllers
 
             var speaker = await _context.Speakers
                 .Include(s => s.Meeting)
-                .FirstOrDefaultAsync(m => m.SpeakerId == id);
+                .SingleOrDefaultAsync(m => m.SpeakerId == id);
             if (speaker == null)
             {
                 return NotFound();
@@ -146,10 +148,11 @@ namespace SacramentPlanner.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var speaker = await _context.Speakers.FindAsync(id);
+            var speaker = await _context.Speakers.SingleOrDefaultAsync(m => m.MeetingId == id);
             _context.Speakers.Remove(speaker);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            String xIndex = "Index/" + speaker.MeetingId;
+            return RedirectToAction(xIndex);
         }
 
         private bool SpeakerExists(int id)
